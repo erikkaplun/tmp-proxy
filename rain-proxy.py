@@ -70,7 +70,6 @@ def proxy(remote_addr, local_addr, chunk_size=1024, local_to_server_func=None, s
         ready_to_read, ready_to_write, in_error = select.select(sockets, [], [], 1)
         for connection in ready_to_read:
             if connection == listener:  # Add new socket
-                print("accept")
                 handle_client(listener, remote_addr, local_to_server, server_to_local, sockets)
             else:  # handle existing socket
                 try:  # If socket died
