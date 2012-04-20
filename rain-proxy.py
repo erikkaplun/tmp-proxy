@@ -20,13 +20,13 @@ def console_write(text):
 
 def handle_client(listener, remote_addr, local_to_server, server_to_local, sockets):
     print ("Something trying to connect...")
-    local, address = listener.accept()
-    remote = socket.create_connection(remote_addr)
+    client_sock, address = listener.accept()
+    server_sock = socket.create_connection(remote_addr)
     print ("Client accepted.")
-    sockets.append(local)
-    sockets.append(remote)
-    local_to_server[local] = remote
-    server_to_local[remote] = local
+    sockets.append(client_sock)
+    sockets.append(server_sock)
+    local_to_server[client_sock] = server_sock
+    server_to_local[server_sock] = client_sock
 
 
 def send(connection, data, local_to_server, server_to_local, local_to_server_func, server_to_local_func):
