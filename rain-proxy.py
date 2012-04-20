@@ -87,7 +87,7 @@ def proxy(remote_addr, local_addr, chunk_size=1024, local_to_server_func=None, s
         #ready_to_read, ready_to_write, in_error = select.select(sockets, [], [], 1)
         for connection in ready_to_write:
             print("send:")
-            send(connection, ''.join(data_to_write[connection]), local_to_server, server_to_local, local_to_server_func, server_to_local_func)
+            send(connection, ''.join(data_to_write.pop(connection)), local_to_server, server_to_local, local_to_server_func, server_to_local_func)
 
     #print ("Done.")
 
