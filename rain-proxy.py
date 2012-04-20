@@ -31,16 +31,15 @@ def handle_client(listener, remote_addr, local_to_server, server_to_local, socke
 
 
 def send(connection, data, local_to_server, server_to_local, local_to_server_func, server_to_local_func):
+    def _do_send(socket, fn, data):
+        socket.send(fn(data) if fn else data)
+
     if connection in local_to_server:
-        if local_to_server_func != None:
-            data = local_to_server_func(data)
-        console_write("Local:\n" + data)
-        local_to_server[connection].send(data)
+        console_write("Local:%s\n" % data)
+        _do_send(local_to_server[connection], local_to_server_func)
     else:
-        if server_to_local_func != None:
-            data = server_to_local_func(data)
-        console_write("Remote:\n" + data)
-        server_to_local[connection].send(data)
+        console_write("Remote:%s\n" % data)
+        _do_send(server_to_local[connection], server_to_local_func)
 
 
 def close_socket(connection, local_to_server, sockets):
