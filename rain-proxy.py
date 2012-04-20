@@ -13,7 +13,7 @@ if sys.version_info > (3, 0, 0):
 def console_write(text):
     if os.name == 'nt':
         f = open("dump.txt", "a+")
-        f.write(text)
+        f.write(text + '\n')
         f.close()
     else:
         print(text)
