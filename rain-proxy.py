@@ -43,11 +43,7 @@ def send(connection, data, local_to_server, server_to_local, local_to_server_fun
         _do_send(server_to_local[connection], server_to_local_func)
 
 
-def close_socket(connection, local_to_server, sockets):
-    #if connection in local_to_server:
-        #print ("Local disconnected.")
-    #else:
-        #print ("Remote disconnected.")
+def close_socket(connection, sockets):
     connection.close()
     sockets.remove(connection)
 
@@ -83,7 +79,7 @@ def proxy(remote_addr, local_addr, chunk_size=1024, local_to_server_func=None, s
                         data_to_write[connection] = data
                         print("appending data [" + str(connection) + "] = " + str(data_to_write[connection]))
                     else:  # If socket closed
-                        sockets = close_socket(connection, local_to_server, sockets)
+                        sockets = close_socket(connection, sockets)
 
         #ready_to_read, ready_to_write, in_error = select.select(sockets, [], [], 1)
         for connection in ready_to_write:
