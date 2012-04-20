@@ -52,7 +52,7 @@ def close_socket(connection, local_to_server, sockets):
     sockets.remove(connection)
 
 
-def proxy(remote_addr, local_addr, size=1024, local_to_server_func=None, server_to_local_func=None):
+def proxy(remote_addr, local_addr, chunk_size=1024, local_to_server_func=None, server_to_local_func=None):
     local_to_server = {}
     server_to_local = {}
     sockets = []
@@ -75,7 +75,7 @@ def proxy(remote_addr, local_addr, size=1024, local_to_server_func=None, server_
             else:  # handle existing socket
                 try:  # If socket died
                     print("recv")
-                    data = connection.recv(size)
+                    data = connection.recv(chunk_size)
                 except socket.error:
                     print ("Connection reset")
                     sockets.remove(connection)
