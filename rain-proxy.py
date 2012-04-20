@@ -79,7 +79,7 @@ def proxy(remote_addr, local_addr, chunk_size=1024, local_to_server_func=None, s
                         data_to_write[connection] = data
                         print("appending data [" + str(connection) + "] = " + str(data_to_write[connection]))
                     else:  # If socket closed
-                        sockets = close_socket(connection, sockets)
+                        close_socket(connection, sockets)
 
         #ready_to_read, ready_to_write, in_error = select.select(sockets, [], [], 1)
         for connection in ready_to_write:
